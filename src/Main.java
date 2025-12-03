@@ -1,7 +1,28 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+interface PII {
+    void getPizza();
+}
+abstract class PizzaDecorator implements PII{
+
+    public PizzaDecorator(){
+        System.out.println("PizzaDecorator");
+    }
+}
+
+class Pizza extends PizzaDecorator {
+    Pizza() {
+        super();
+    }
+
+    @Override
+    public void getPizza() {
+        System.out.println("Margherita");
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
-        System.out.printf("Hello and welcome!");
+        PizzaDecorator pz = new Pizza();
+        pz.getPizza();
     }
 }
