@@ -63,7 +63,7 @@ class ProductBundle implements CartItem {
 
 public class CompositePattern {
     public static void main(String[] args) {
-// Individual Products
+        // Individual Products
         CartItem book = new Product("Atomic Habits", 499);
         CartItem phone = new Product("iPhone 15", 79999);
         CartItem earbuds = new Product("AirPods", 15999);
