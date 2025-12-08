@@ -76,6 +76,8 @@ class LogisticsService {
 
 public class Factory {
     public static void main(String[] args) {
-
+        LogisticsService service = new LogisticsService();
+        service.send("Air");
+        service.send("Road");
     }
 }
