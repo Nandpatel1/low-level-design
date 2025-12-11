@@ -1,28 +1,111 @@
 
-interface PII {
-    void getPizza();
-}
-abstract class PizzaDecorator implements PII{
-
-    public PizzaDecorator(){
-        System.out.println("PizzaDecorator");
-    }
+interface Pizza {
+    String getDescription();
+    double getCost();
 }
 
-class Pizza extends PizzaDecorator {
-    Pizza() {
-        super();
+// ============= Concrete Components: Base pizzas ==============
+class PlainPizza implements Pizza {
+    @Override
+    public String getDescription() {
+        return "Plain Pizza";
     }
 
     @Override
-    public void getPizza() {
-        System.out.println("Margherita");
+    public double getCost() {
+        return 150.00;
+    }
+}
+
+class MargheritaPizza implements Pizza {
+    @Override
+    public String getDescription() {
+        return "Margherita Pizza";
+    }
+
+    @Override
+    public double getCost() {
+        return 200.00;
+    }
+}
+
+
+// ======================== Abstract Decorator ===========================
+// ====== Implements Pizza and holds a reference to a Pizza object =======
+abstract class PizzaDecorator implements Pizza {
+    protected Pizza pizza;
+
+    public PizzaDecorator(Pizza pizza) {
+        this.pizza = pizza;
+    }
+}
+
+// ============ Concrete Decorator: Adds Extra Cheese ================
+class ExtraCheese extends PizzaDecorator {
+    public ExtraCheese(Pizza pizza) {
+        super(pizza);
+    }
+
+    @Override
+    public String getDescription() {
+        System.out.println("ExtraCheese called " + pizza);
+        return pizza.getDescription() + ", Extra Cheese";
+    }
+
+    @Override
+    public double getCost() {
+        return pizza.getCost() + 40.0;
+    }
+}
+
+// ============ Concrete Decorator: Adds Olives ================
+class Olives extends PizzaDecorator {
+    public Olives(Pizza pizza) {
+        super(pizza);
+    }
+
+    @Override
+    public String getDescription() {
+        System.out.println("Olives called " + pizza);
+        return pizza.getDescription() + ", Olives";
+    }
+
+    @Override
+    public double getCost() {
+        return pizza.getCost() + 30.0;
+    }
+}
+
+// =========== Concrete Decorator: Adds Stuffed Crust Cheese ==============
+class StuffedCrust extends PizzaDecorator {
+    public StuffedCrust(Pizza pizza) {
+        super(pizza);
+    }
+
+    @Override
+    public String getDescription() {
+        System.out.println("Stuffed Called " + pizza);
+        return pizza.getDescription() + ", Stuffed Crust";
+    }
+
+    @Override
+    public double getCost() {
+        return pizza.getCost() + 50.0;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        PizzaDecorator pz = new Pizza();
-        pz.getPizza();
+        Pizza myPizza = new MargheritaPizza();
+
+        myPizza = new ExtraCheese(myPizza);
+
+        myPizza = new StuffedCrust(myPizza);
+
+        myPizza = new Olives(myPizza);
+
+        System.out.println("Pizza Description: " + myPizza.getDescription());
+        System.out.println("Total Cost: ₹" + myPizza.getCost());
+
     }
 }
